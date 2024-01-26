@@ -1,7 +1,16 @@
+// library imports
 import { useQuery } from "react-query";
-import { fetchData } from "./utils/api";
-import { Bar } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+
+// utils imports
+import { fetchData } from "./utils/api";
+
+// components
+import Loading from "./components/Loading";
+import { BottomFooter } from "./components/BottomFooter";
+import { Main } from "./components/Main";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 Chart.register(...registerables);
 
@@ -40,67 +49,23 @@ function App() {
 	return (
 		<main className="flex flex-col items-center justify-center h-screen font-DM bg-neutral-cream">
 			{isLoading ? (
-				<div className="border-2 size-20 text-primary-cyan border-primary-softRed animate-spin"></div>
+				<Loading />
 			) : (
 				<div className="w-full max-w-[500px]">
 					{/* Header */}
-					<header className="flex items-center justify-between py-5 px-6 bg-primary-softRed rounded-xl w-[90%] mx-auto">
-						<div className="flex flex-col gap-1">
-							<h1 className="text-neutral-veryPaleOrange ">My balance</h1>
-							<p className="text-2xl font-bold text-white">$921.48</p>
-						</div>
-						<img src="/images/logo.svg" alt="" className="h-10" />
-					</header>
+					<Header />
 
 					{/* Main content */}
 					<section className="w-[90%] mx-auto rounded-xl bg-white mt-4">
-						<h1 className="pt-6 pb-10 pl-4 text-[26px] font-bold text-neutral-darkBrown">
-							Spending - Last 7 days
-						</h1>
-						<div className="pb-4">
-							<Bar data={chartData} options={options} />
-						</div>
+						<Main chartData={chartData} options={options} />
 						<div className="w-[90%] m-auto border border-neutral-cream"></div>
 
 						{/* Footer */}
-						<footer className="flex flex-row items-end justify-between pb-2">
-							<div className="py-6 pl-4">
-								<h2 className="font-normal text-neutral-mediumBrown">
-									Total this month
-								</h2>
-								<p className="text-3xl font-bold">$478.33</p>
-							</div>
-							<div className="flex flex-col pb-4 pr-4">
-								<p className="ml-auto font-bold text-neutral-darkBrown">
-									+2.4%
-								</p>
-								<p className="text-neutral-mediumBrown">from last month</p>
-							</div>
-						</footer>
+						<Footer />
 					</section>
 
 					{/* Bottom Footer */}
-					<div className="text-center text-[11px]">
-						Challenge by{" "}
-						<a
-							className="text-blue-500"
-							href="https://www.frontendmentor.io?ref=challenge"
-							target="_blank"
-							rel="noreferrer"
-						>
-							Frontend Mentor
-						</a>
-						. Coded by{" "}
-						<a
-							className="text-blue-500"
-							href="https://github.com/replayzor"
-							target="_blank"
-							rel="noreferrer"
-						>
-							Ionut Oltean
-						</a>
-						.
-					</div>
+					<BottomFooter />
 				</div>
 			)}
 		</main>
